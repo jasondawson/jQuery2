@@ -1,0 +1,58 @@
+.new-item-header {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	min-height: 50px;
+}
+
+.newTaskBox {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	min-height: 50px;
+}
+
+.newList {
+	box-sizing: border-box;
+	margin-left: 10px;
+	margin-top: 70px;
+	margin-bottom: 10px;
+	width: 80%;
+
+}
+.panel {
+	box-sizing: border-box;
+	margin-left: 15px;
+	display: inline-block;
+	width: 38%;
+}
+
+.box {
+	padding: 10px;
+	border: 1px solid black;
+	border-radius: 5px;
+	background: rgba(159, 223, 197, 1);
+}
+
+.arch {
+	background: rgba(166, 166, 166, 1);
+}
+
+button {
+
+	height: 40px;
+	background: rgba(109, 173, 147, 1);
+	border-radius: 5px;
+	color: #fff;
+	font-size: 20px;
+	font-family: sans-serif;
+	line-height: 40px;
+}
+
+#saveNewItem {
+	background: rgba(0, 158, 40, 1);
+}
+
+#cancel {
+	background: rgba(145, 13, 13, 1);
+}

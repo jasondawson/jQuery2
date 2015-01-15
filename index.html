@@ -2,11 +2,38 @@
 <html>
 <head>
 	<title>Listo</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="app/styles/main.css">
+
 </head>
 <body>
 
+<form id="newTaskForm" class="newTaskBox">
+	<label>New Item</label>
+	<input id="newItemInput" placeholder="new task">
+	<button id="saveNewItem">Save</button>
+	<button id="cancel">Cancel</button>
+</form>
 
+<div class="new-item-header">
+	<button href="#" class="pull-right pencil" id="newListItem" style="">New</button>
+</div>
+
+<div id="newList" class="newList box">
+New List
+</div>
+
+<div class="panel box">
+	In Progress
+	<ul class="list-group" id="currentList"></ul>
+</div>
+
+<div class="panel box arch">
+	Archived
+	<ul class="list-group" id="archivedList"></ul>
+</div>
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="app/scripts/app.js"></script>
 </body>
 </html>
