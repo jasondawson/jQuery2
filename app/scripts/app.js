@@ -2,9 +2,30 @@ $(document).ready(function(){
 
 $('#newTaskForm').hide();
 
-$('.arch').hide();
-
 var listo = [];
+var save = function() {
+	localStorage.listo = JSON.stringify(listo);
+};
+
+var loadLocalStorage = function() {
+		listo = JSON.parse(localStorage.listo);
+
+		//TODO loop through listo and put objects back in the right html 'places'
+		//can check with Jess's github repo
+		for (var i = 0; i < listo.length; i++) {
+			if (listo[i].id === 'new') {
+                $('#newList').append('<a href="#" class="" id="item"><li class="list-group-item">' + listo[i].task + '<span class="arrow pull-right"><i class="glyphicon glyphicon-arrow-right"></span></li></a>');
+            } else if (listo[i].id === 'inProgress') {
+                $('#currentList').append('<a href="#" class="" id="inProgress"><li class="list-group-item">' + listo[i].task + '<span class="arrow pull-right"><i class="glyphicon glyphicon-arrow-right"></span></li></a>');
+            } else if (listo[i].id === 'archived') {
+            	$('#archivedList').append('<a href="#" class="" id="archived"><li class="list-group-item">' + listo[i].task + '<span class="arrow pull-right"><i class="glyphicon glyphicon-trash"></span></li></a>');
+            } else {
+            	listo.splice(i, 1);
+            }
+		}
+
+};
+
 var Task = function(task) {
 	this.task = task;
 	this.id = 'new';
@@ -13,6 +34,7 @@ var addTask = function(task) {
 	if(task) {
 		task = new Task(task);
 		listo.push(task);
+		save();
 
 		//clear form and add task to html
 		$('#newItemInput').val('');
@@ -22,9 +44,24 @@ var addTask = function(task) {
 	$('#newTaskForm, #newListItem').fadeToggle('fast', 'linear');
 };
 
+ var archiveToggle = function() {
+ 	var archivesExist = false;
+ 	for (var i = 0; i < listo.length; i++) {
+    	if (listo[i].id === 'archived') {
+    		archivesExist = true;
+    		break;
+    	};
+    };
+
+    if (archivesExist) {
+    	$('.arch').show();
+    } else {
+    	$('.arch').hide();
+    };
+};
+
 var advanceTask = function(task) {
     var modified = task.innerText.trim();
-    var archivesExist = false;
     for (var i = 0; i < listo.length; i++) {
         if (listo[i].task === modified) {
             if (listo[i].id === 'new') {
@@ -34,28 +71,19 @@ var advanceTask = function(task) {
             } else {
                 listo.splice(i, 1);
             }
-
+        	save();
             break;
         }
     }
     task.remove();
-
- 
- 	for (var i = 0; i < listo.length; i++) {
-    	if (listo[i].id === 'archived') {
-    		archivesExist = true;
-    		break;
-    	};
-    };
-
-
-    if (archivesExist) {
-    	$('.arch').show();
-    } else {
-    	$('.arch').hide();
-    };
+	archiveToggle(); 
 
 };
+
+if (localStorage.listo) {
+	loadLocalStorage();
+};
+archiveToggle();
 
 $('#saveNewItem').on('click', function(e) {
 	e.preventDefault();
